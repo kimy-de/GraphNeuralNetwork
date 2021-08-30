@@ -24,7 +24,7 @@ class GNN(nn.Module):
     def __init__(self, image_size=28, input_channels=1):
         super(GNN, self).__init__()
         self.device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
-        Adj = self.adjacency_matrix_for_rectangle_grid(image_size).to(self.device)
+        Adj = self.adjacency_matrix_cross_connection(image_size).to(self.device)
         self.gconv1 = GraphConv(Adj, image_size, input_channels, 3)
         self.gconv2 = GraphConv(Adj, image_size, 3, 1)
         self.gconv3 = GraphConv(Adj, image_size, 1, 1)
